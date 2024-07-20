@@ -1422,16 +1422,17 @@ function loadPlugin(plugin)
 
     print("tempautoadd = " .. tempautoadd .. " and _G.autoadd = " .. _G.autoadd)
 
-    if tempautoadd == 1 then
-        local sleep = astSleep(_G.loadspeed)
-        if sleep == false then
-            hs.alert.show("applescript sleep failed to execute properly")
-        end
-        hs.eventtap.keyStroke({}, "down", 0)
-        hs.eventtap.keyStroke({}, "return", 0)
-        hs.eventtap.keyStroke({}, "escape", 0)
-    end
-
+  local liveVersion = getLiveVersionFromPath(liveObj:path())
+    if liveVersion >= 12.1 then
+      local sleep = astSleep(0.6)
+      hs.eventtap.keyStroke({}, "return", 0)
+      local sleep = astSleep(0.2)
+      hs.eventtap.keyStroke({}, "return", 0)
+      hs.eventtap.keyStroke({}, "escape", 0)
+      local sleep = astSleep(0.2)
+      hs.eventtap.keyStroke({"cmd", "alt"}, "5", 0)
+  end
+  
     if _G.resettobrowserbookmark == 1 then
         if _G.loadspeed <= 0.5 then
             sleep2 = astSleep(0.1)
