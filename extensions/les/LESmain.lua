@@ -1422,8 +1422,6 @@ function loadPlugin(plugin)
 
     print("tempautoadd = " .. tempautoadd .. " and _G.autoadd = " .. _G.autoadd)
 
-  local liveVersion = getLiveVersionFromPath(liveObj:path())
-    if liveVersion >= 12.1 then
       local sleep = astSleep(0.6)
       hs.eventtap.keyStroke({}, "return", 0)
       local sleep = astSleep(0.2)
@@ -1431,7 +1429,6 @@ function loadPlugin(plugin)
       hs.eventtap.keyStroke({}, "escape", 0)
       local sleep = astSleep(0.2)
       hs.eventtap.keyStroke({"cmd", "alt"}, "5", 0)
-  end
   
     if _G.resettobrowserbookmark == 1 then
         if _G.loadspeed <= 0.5 then
