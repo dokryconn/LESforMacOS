@@ -125,7 +125,7 @@ function module.init(self)
   -- Step 5: Optional sanity checks
   ---------------------------------------------------------------------
 
-  if _G.checksanity == 1 then
+  if _G.checksanity == 0 then
     -- Step 5.1: Check if we're using a validated version of macOS
     function pushVersionFailAlert(progName, minVer, maxVer, curVer)
       HSMakeAlert(programName, string.format([[
