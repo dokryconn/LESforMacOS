@@ -722,7 +722,7 @@ hs.hotkey.bind(hyper3, "S", function()
 end)
 
 -- buplicate shortcut
-buplicate = hs.hotkey.bind({"cmd"}, "B", function()
+buplicate = hs.hotkey.bind({"cmd", "alt", "ctrl"}, "B", function()
     if buplicatelastshortcut == 0 or buplicatelastshortcut == nil then
         selectLiveMenuItem("Duplicate")
         selectLiveMenuItem("Duplicate")
