@@ -1422,12 +1422,12 @@ function loadPlugin(plugin)
 
     print("tempautoadd = " .. tempautoadd .. " and _G.autoadd = " .. _G.autoadd)
 
-      local sleep = astSleep(0.6)
+      local sleep = astSleep(0.5)
       hs.eventtap.keyStroke({}, "return", 0)
-      local sleep = astSleep(0.2)
+      local sleep = astSleep(0.5)
       hs.eventtap.keyStroke({}, "return", 0)
       hs.eventtap.keyStroke({}, "escape", 0)
-      local sleep = astSleep(0.2)
+      local sleep = astSleep(0.5)
       hs.eventtap.keyStroke({"cmd", "alt"}, "5", 0)
   
     if _G.resettobrowserbookmark == 1 then
