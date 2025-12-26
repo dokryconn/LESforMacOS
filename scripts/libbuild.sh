@@ -43,6 +43,7 @@ function op_build() {
                -configuration "${XCODE_CONFIGURATION}" \
                -destination "platform=macOS" \
                -archivePath "${HAMMERSPOON_XCARCHIVE_PATH}" \
+               GCC_TREAT_WARNINGS_AS_ERRORS=NO \
                "${BUILD_COMMAND}" | tee "${BUILD_HOME}/${XCODE_CONFIGURATION}-build.log" | xcbeautify ${XCB_OPTS[@]:-}
 
     if [ "${BUILD_COMMAND}" == "archive" ]; then

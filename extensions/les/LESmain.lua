@@ -1406,11 +1406,26 @@ debounce2 = 0
 -- the plugin names nead to have any newline characters removed
 function loadPlugin(plugin)
     pluginCleaned = plugin:match '^%s*(.*%S)' or ''
+    print("DEBUG: Loading Plugin: " .. pluginCleaned)
+    
+    -- Save and force ASCII input source
+    local currentSource = hs.keycodes.currentSourceID()
+    hs.keycodes.setLayout("U.S.")
+    
+    -- Small delay to ensure input source is switched
+    local sleep = astSleep(0.2)
+    
+    -- Open search
     hs.eventtap.keyStroke("cmd", "f", 0)
+    local sleep = astSleep(0.7) -- Increased delay for search bar
+    
+    -- Type plugin name
     hs.eventtap.keyStrokes(pluginCleaned)
+    local sleep = astSleep(0.5) -- Wait for typing to complete
+    
     tempautoadd = nil
 
-    if hs.eventtap.checkKeyboardModifiers().cmd then -- if you're holding cmd, invert the option for autoadd set in the settings.ini file temporarily.
+    if hs.eventtap.checkKeyboardModifiers().cmd then
         if _G.autoadd == 1 then
             tempautoadd = 0
         elseif _G.autoadd == 0 then
@@ -1422,13 +1437,21 @@ function loadPlugin(plugin)
 
     print("tempautoadd = " .. tempautoadd .. " and _G.autoadd = " .. _G.autoadd)
 
-      local sleep = astSleep(0.5)
-      hs.eventtap.keyStroke({}, "return", 0)
-      local sleep = astSleep(0.5)
-      hs.eventtap.keyStroke({}, "return", 0)
-      hs.eventtap.keyStroke({}, "escape", 0)
-      local sleep = astSleep(0.5)
-      hs.eventtap.keyStroke({"cmd", "alt"}, "5", 0)
+    -- Execute plugin loading sequence
+    local sleep = astSleep(0.5)
+    hs.eventtap.keyStroke({}, "return", 0)
+    local sleep = astSleep(0.5)
+    hs.eventtap.keyStroke({}, "return", 0)
+    hs.eventtap.keyStroke({}, "escape", 0)
+    local sleep = astSleep(0.5)
+    hs.eventtap.keyStroke({"cmd", "alt"}, "5", 0)
+    
+    -- Restore input source after all operations
+    hs.timer.doAfter(2.0, function()
+        if currentSource then
+            hs.keycodes.setLayout(currentSource)
+        end
+    end)
   
     if _G.resettobrowserbookmark == 1 then
         if _G.loadspeed <= 0.5 then
